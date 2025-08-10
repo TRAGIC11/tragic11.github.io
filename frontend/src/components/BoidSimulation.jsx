@@ -4,6 +4,7 @@ const BoidSimulation = () => {
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
   const boidsRef = useRef([]);
+  const mouseRef = useRef({ x: -1000, y: -1000 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -17,6 +18,22 @@ const BoidSimulation = () => {
 
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
+
+    // Mouse tracking
+    const handleMouseMove = (event) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current = {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+      };
+    };
+
+    const handleMouseLeave = () => {
+      mouseRef.current = { x: -1000, y: -1000 };
+    };
+
+    canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('mouseleave', handleMouseLeave);
 
     // Boid class
     class Boid {
