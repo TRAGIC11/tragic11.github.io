@@ -1,62 +1,35 @@
-import React, { useState } from 'react';
-import { Mail, Phone, Github, Linkedin, MapPin, Send, CheckCircle } from 'lucide-react';
+import React from 'react';
+import { Mail, Phone, Github, Linkedin, MapPin, MessageCircle } from 'lucide-react';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Mock form submission
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 3000);
-    
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
-  };
-
   const contactInfo = [
     {
-      icon: <Mail className="text-cyan-400" size={20} />,
+      icon: <Mail className="text-cyan-400" size={24} />,
       label: "Email",
       value: "piyush.bhujbal2001@gmail.com",
-      href: "mailto:piyush.bhujbal2001@gmail.com"
+      href: "mailto:piyush.bhujbal2001@gmail.com",
+      description: "Send me an email for business inquiries"
     },
     {
-      icon: <Phone className="text-green-400" size={20} />,
+      icon: <Phone className="text-green-400" size={24} />,
       label: "Phone",
       value: "+91 88030 36120",
-      href: "tel:+918803036120"
+      href: "tel:+918803036120",
+      description: "Call me directly for urgent matters"
     },
     {
-      icon: <Github className="text-gray-400" size={20} />,
+      icon: <Github className="text-gray-400" size={24} />,
       label: "GitHub",
       value: "github.com/piyushbhujbal",
-      href: "https://github.com/piyushbhujbal"
+      href: "https://github.com/piyushbhujbal",
+      description: "Check out my code and projects"
     },
     {
-      icon: <Linkedin className="text-blue-400" size={20} />,
+      icon: <Linkedin className="text-blue-400" size={24} />,
       label: "LinkedIn",
       value: "linkedin.com/in/piyushbhujbal",
-      href: "https://linkedin.com/in/piyushbhujbal"
+      href: "https://linkedin.com/in/piyushbhujbal",
+      description: "Connect with me professionally"
     }
   ];
 
@@ -72,135 +45,97 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-2xl font-bold text-white mb-6">Let's Connect</h3>
-              <p className="text-gray-300 leading-relaxed mb-8">
+        <div className="max-w-4xl mx-auto">
+          {/* Main Contact Section */}
+          <div className="text-center mb-12">
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-8 mb-8">
+              <MessageCircle className="text-cyan-400 mx-auto mb-4" size={48} />
+              <h3 className="text-2xl font-bold text-white mb-4">Ready to Connect?</h3>
+              <p className="text-gray-300 leading-relaxed max-w-2xl mx-auto">
                 I'm always interested in discussing new opportunities, innovative projects, 
-                or connecting with fellow data scientists and tech enthusiasts. Feel free to reach out!
+                or connecting with fellow data scientists and tech enthusiasts. Choose your preferred way to reach out!
               </p>
             </div>
+          </div>
 
-            <div className="space-y-6">
-              {contactInfo.map((info, index) => (
-                <a
-                  key={index}
-                  href={info.href}
-                  target={info.href.startsWith('http') ? '_blank' : undefined}
-                  rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="flex items-center p-4 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg hover:border-cyan-400/50 transition-colors duration-200 group"
-                >
-                  <div className="mr-4">
-                    {info.icon}
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-400 font-medium">{info.label}</p>
-                    <p className="text-white group-hover:text-cyan-400 transition-colors duration-200">
-                      {info.value}
-                    </p>
-                  </div>
-                </a>
-              ))}
+          {/* Contact Information Grid */}
+          <div className="grid md:grid-cols-2 gap-6 mb-12">
+            {contactInfo.map((info, index) => (
+              <a
+                key={index}
+                href={info.href}
+                target={info.href.startsWith('http') ? '_blank' : undefined}
+                rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                className="flex items-start p-6 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl hover:border-cyan-400/50 hover:transform hover:scale-105 transition-all duration-300 group"
+              >
+                <div className="mr-4 mt-1">
+                  {info.icon}
+                </div>
+                <div className="flex-1">
+                  <h4 className="text-lg font-semibold text-white mb-1 group-hover:text-cyan-400 transition-colors duration-200">
+                    {info.label}
+                  </h4>
+                  <p className="text-cyan-400 font-medium mb-2">
+                    {info.value}
+                  </p>
+                  <p className="text-sm text-gray-400">
+                    {info.description}
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Location and Availability */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6">
+              <div className="flex items-center mb-4">
+                <MapPin className="text-red-400 mr-3" size={24} />
+                <h4 className="text-lg font-semibold text-white">Location</h4>
+              </div>
+              <p className="text-gray-300 mb-2">Based in India</p>
+              <p className="text-sm text-gray-400">Open to remote opportunities worldwide</p>
             </div>
 
             <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6">
               <div className="flex items-center mb-4">
-                <MapPin className="text-red-400 mr-3" size={20} />
-                <h4 className="text-lg font-semibold text-white">Location</h4>
+                <div className="w-3 h-3 bg-green-400 rounded-full mr-3 animate-pulse"></div>
+                <h4 className="text-lg font-semibold text-white">Availability</h4>
               </div>
-              <p className="text-gray-300">India</p>
-              <p className="text-sm text-gray-400 mt-1">Open to remote opportunities worldwide</p>
+              <p className="text-gray-300 mb-2">Currently open to new opportunities</p>
+              <p className="text-sm text-gray-400">Usually responds within 24 hours</p>
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-8">
-            <h3 className="text-2xl font-bold text-white mb-6">Send a Message</h3>
-            
-            {isSubmitted ? (
-              <div className="text-center py-8">
-                <CheckCircle className="text-green-400 mx-auto mb-4" size={48} />
-                <h4 className="text-xl font-semibold text-white mb-2">Message Sent!</h4>
-                <p className="text-gray-300">Thank you for reaching out. I'll get back to you soon.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                      Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      required
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-colors duration-200"
-                      placeholder="Your Name"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-colors duration-200"
-                      placeholder="your.email@example.com"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
-                    Subject *
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    required
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-colors duration-200"
-                    placeholder="What's this about?"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                    Message *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    required
-                    rows={6}
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-colors duration-200"
-                    placeholder="Tell me about your project, opportunity, or just say hello!"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center"
+          {/* Call to Action */}
+          <div className="text-center mt-12">
+            <div className="bg-gradient-to-r from-cyan-900/30 to-blue-900/30 border border-cyan-400/30 rounded-xl p-8">
+              <h3 className="text-xl font-bold text-white mb-3">
+                Let's Build Something Amazing Together
+              </h3>
+              <p className="text-gray-300 mb-6">
+                Whether you have a project in mind, want to collaborate, or just want to say hello, 
+                I'd love to hear from you.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="mailto:piyush.bhujbal2001@gmail.com"
+                  className="bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-3 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center"
                 >
-                  <Send size={20} className="mr-2" />
-                  Send Message
-                </button>
-              </form>
-            )}
+                  <Mail size={20} className="mr-2" />
+                  Send Email
+                </a>
+                <a
+                  href="https://linkedin.com/in/piyushbhujbal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black font-medium py-3 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center"
+                >
+                  <Linkedin size={20} className="mr-2" />
+                  Connect on LinkedIn
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
