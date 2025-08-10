@@ -45,7 +45,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a
-                href="https://github.com/piyushbhujbal"
+                href="https://github.com/TRAGIC11"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors duration-200"
@@ -53,7 +53,7 @@ const Footer = () => {
                 <Github className="text-gray-400 hover:text-white" size={20} />
               </a>
               <a
-                href="https://linkedin.com/in/piyushbhujbal"
+                href="https://linkedin.com/in/piyush-bhujbal"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors duration-200"
@@ -61,7 +61,7 @@ const Footer = () => {
                 <Linkedin className="text-gray-400 hover:text-blue-400" size={20} />
               </a>
               <a
-                href="mailto:piyush.bhujbal2001@gmail.com"
+                href="mailto:piyush.bhujbal0201@gmail.com"
                 className="p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors duration-200"
               >
                 <Mail className="text-gray-400 hover:text-cyan-400" size={20} />

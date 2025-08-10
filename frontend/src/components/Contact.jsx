@@ -6,29 +6,29 @@ const Contact = () => {
     {
       icon: <Mail className="text-cyan-400" size={24} />,
       label: "Email",
-      value: "piyush.bhujbal2001@gmail.com",
-      href: "mailto:piyush.bhujbal2001@gmail.com",
+      value: "piyush.bhujbal0201@gmail.com",
+      href: "mailto:piyush.bhujbal0201@gmail.com",
       description: "Send me an email for business inquiries"
     },
     {
       icon: <Phone className="text-green-400" size={24} />,
       label: "Phone",
-      value: "+91 88030 36120",
-      href: "tel:+918803036120",
+      value: "+91 88063 06120",
+      href: "tel:+918806306120",
       description: "Call me directly for urgent matters"
     },
     {
       icon: <Github className="text-gray-400" size={24} />,
       label: "GitHub",
-      value: "github.com/piyushbhujbal",
-      href: "https://github.com/piyushbhujbal",
+      value: "github.com/TRAGIC11",
+      href: "https://github.com/TRAGIC11",
       description: "Check out my code and projects"
     },
     {
       icon: <Linkedin className="text-blue-400" size={24} />,
       label: "LinkedIn",
-      value: "linkedin.com/in/piyushbhujbal",
-      href: "https://linkedin.com/in/piyushbhujbal",
+      value: "linkedin.com/in/piyush-bhujbal",
+      href: "https://www.linkedin.com/in/piyush-bhujbal",
       description: "Connect with me professionally"
     }
   ];
@@ -119,14 +119,14 @@ const Contact = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="mailto:piyush.bhujbal2001@gmail.com"
+                  href="mailto:piyush.bhujbal0201@gmail.com"
                   className="bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-3 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center"
                 >
                   <Mail size={20} className="mr-2" />
                   Send Email
                 </a>
                 <a
-                  href="https://linkedin.com/in/piyushbhujbal"
+                  href="https://linkedin.com/in/piyush-bhujbal"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black font-medium py-3 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center"

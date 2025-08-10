@@ -21,7 +21,7 @@ const Hero = () => {
 
           <div className="flex justify-center space-x-6 pt-8">
             <a
-              href="mailto:piyush.bhujbal2001@gmail.com"
+              href="mailto:piyush.bhujbal0201@gmail.com"
               className="flex items-center space-x-2 bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-lg transition-colors duration-200 font-medium"
             >
               <Mail size={20} />
@@ -29,7 +29,7 @@ const Hero = () => {
             </a>
             
             <a
-              href="tel:+918803036120"
+              href="tel:+918806306120"
               className="flex items-center space-x-2 border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black px-6 py-3 rounded-lg transition-colors duration-200 font-medium"
             >
               <Phone size={20} />
@@ -39,7 +39,7 @@ const Hero = () => {
 
           <div className="flex justify-center space-x-6 pt-6">
             <a
-              href="https://github.com/piyushbhujbal"
+              href="https://github.com/TRAGIC11"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-cyan-400 transition-colors duration-200"
@@ -47,7 +47,7 @@ const Hero = () => {
               <Github size={24} />
             </a>
             <a
-              href="https://linkedin.com/in/piyushbhujbal"
+              href="https://www.linkedin.com/in/piyush-bhujbal"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-cyan-400 transition-colors duration-200"
