@@ -15,8 +15,7 @@ const Hero = () => {
           </p>
           
           <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            Transforming complex data into actionable insights. Specialized in ML/AI solutions, 
-            with experience at WiseTech Global and a strong foundation from IIT Madras.
+            Uncovering stories hidden in numbers is my way of making sense of the world.
           </p>
 
           <div className="flex justify-center space-x-6 pt-8">

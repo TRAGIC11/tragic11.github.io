@@ -4,26 +4,35 @@ import { Calendar, Building, ChevronRight } from 'lucide-react';
 const Experience = () => {
   const experiences = [
     {
-      title: "Associate Data Scientist",
-      company: "WiseTech Global",
-      location: "India",
-      period: "05/2024 - Present",
+      title: "loading...",
+      company: "loading...",
+      location: "loading...",
+      period: "loading...",
       achievements: [
-        "AKBE Evolution: Upgraded the user-feedback engine from heuristics to GPT-4-In-context-learning (AKBE v3), leveraging five connections to raise attribute-parsing precision and enable zero-shot support for invoice document types.",
-        "Supplier-Invoice Revamp: Designed a new annotation schema, mentored data-entry validators, and fine-tuned Granite-3.0-2B, significantly boosting field-extraction accuracy and accelerating onboarding of new invoice formats.",
-        "Anomaly Detection Platform: Architected an autoencoder+ARIMA pipeline that cut efficiency by 40% and retains itself with zero manual intervention.",
-        "Regex Automation: Replaced hand-written rules with a Llama-based pattern generator, eliminating 80% of manual effort and doubling document-processing speed.",
-        "Production Debug & Deployment: Built an AWS-native framework that automatically captures run-time artefacts, cuts root-cause analysis time, and standardizes secure model packaging for faster Safe rollout."
       ],
       current: true
     },
     {
-      title: "Associate Software Developer",
+      title: "Associate Data Scientist",
       company: "WiseTech Global",
-      location: "India", 
+      location: "Bengaluru, India",
+      period: "05/2024 - 07/2025",
+      achievements: [
+        "AKBE Evolution: Upgraded the user-feedback engine from heuristics to GPT-4-In-context-learning (AKBE v3), leveraging live corrections to raise attribute-parsing precision and enable zero-shot support for invoices.",
+        "Supplier-Invoice Revamp: Designed a new annotation schema, mentored data-entry validators, and fine-tuned Granite-3.0-2B, significantly boosting field-extraction accuracy and accelerating onboarding of new invoice formats.",
+        "Customer Impacted: Analyzed system outputs to detect sub-normal results for a key customer and enhanced the pipeline, achieving a 99% improvement in accuracy for a critical data field.",
+        "Automation Tools: Developed multiple internal tools using Streamlit for automating multiple processes, reducing manual efforts and simplifying workflows. Also prototyped additional tools as proofs of concept.",
+        "Production Debug & Deployment: Built an AWS-native framework that automatically captures run-time artefacts, cuts root-cause analysis time, and standardizes secure model packaging for faster Safe rollout."
+      ],
+      current: false
+    },
+    {
+      title: "Associate Software Developer",
+      company: "Blume Global",
+      location: "Bengaluru, India", 
       period: "07/2023 - 04/2024",
       achievements: [
-        "Developed and implemented a sophisticated mathematical model utilizing Gurobi and Z-tools to address the Optimized Routing Problem in Logistics as a pivotal Onboarding Project.",
+        "Developed and implemented a sophisticated mathematical model utilizing Gurobi and OR-tools to address the Optimized Routing Problem in Logistics as a pivotal Onboarding Project.",
         "Enhanced Blume's Shipment Planning product by incorporating Rail mode functionality and defining the Container Loading Algorithm, contributing to optimized routing solutions.",
         "Independently managing the transition from Blume's Routing Optimizer to NVIDIA's CuOpt Solver, driving the integration of cutting-edge routing optimization techniques."
       ],
@@ -32,7 +41,7 @@ const Experience = () => {
     {
       title: "Data Scientist Intern",
       company: "Perpetual Block",
-      location: "India",
+      location: "Pune, India",
       period: "06/2022 - 07/2022",
       achievements: [
         "Worked on the project of Table Structure Extraction and Reconstruction.",

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, Github, Award, Zap, Navigation, Shield } from 'lucide-react';
+import { ExternalLink, Github, Award, Navigation, Shield, Car } from 'lucide-react';
 
 const Projects = () => {
   const projects = [
@@ -14,17 +14,16 @@ const Projects = () => {
     },
     {
       title: "Traffic Image Segmentation",
-      description: "Used the CARLA self-driving car dataset and UNet to achieve an training accuracy of 99.7/3%: Evaluated: agent performance in terms of regret, total runs scored and wickets lost, demonstrating real-world applicability of MAB techniques.",
+      description: "Used the CARLA self-driving car dataset and UNet architecture.",
       tech: ["Computer Vision", "UNet", "CARLA Dataset", "Deep Learning"],
-      icon: <Navigation className="text-blue-400" size={24} />,
+      icon: <Car className="text-blue-400" size={24} />,
       achievements: [
         "Achieved 99.73% training accuracy on CARLA dataset",
-        "Implemented advanced image segmentation for autonomous driving"
       ]
     },
     {
       title: "NVIDIA Network Intrusion Detector",
-      description: "Built Network Intrusion Detectors: XC-Boost: Supervised model that achieved AUC-ROC of 0.9997 on test data. Auto-Encoders: Unsupervised model that also achieved an AUC-ROC of 0.994. GANs: Trained Generator(to produce data which doesn't follow gaussian distribution) and Discriminator (to detect anomalous). Achieved an AUC-ROC of 0.97.",
+      description: "Built multiple Network Intrusion Detectors based on XG-Boost, Auto-Encoders and GANs.",
       tech: ["XGBoost", "AutoEncoders", "GANs", "Anomaly Detection", "Cybersecurity"],
       icon: <Shield className="text-red-400" size={24} />,
       achievements: [
@@ -36,9 +35,9 @@ const Projects = () => {
     },
     {
       title: "NYC PathFinder",
-      description: "Used New York City Data on DIMACS consisting of 264,346 nodes and 733,846 edges. Developed 3 algorithms to improve path finding compared with basic Dijkstra's algorithm: Bidirectional Dijkstra: 4 times faster, A* algorithm: 7.5 times faster, Contraction Hierarchies: 82 times faster.",
+      description: "Used New York City Data on DIMACS consisting of 264,346 nodes and 733,846 edges. Developed 3 algorithms to improve path finding compared with basic Dijkstra's algorithm: Bidirectional Dijkstra, A* algorithm and Contraction Hierarchies.",
       tech: ["Graph Algorithms", "Pathfinding", "Algorithm Optimization", "Data Structures"],
-      icon: <Zap className="text-green-400" size={24} />,
+      icon: <Navigation className="text-green-400" size={24} />,
       achievements: [
         "Bidirectional Dijkstra: 4x performance improvement",
         "A* Algorithm: 7.5x faster than basic Dijkstra",

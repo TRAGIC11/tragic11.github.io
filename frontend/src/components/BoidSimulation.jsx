@@ -5,6 +5,8 @@ const BoidSimulation = () => {
   const animationRef = useRef(null);
   const boidsRef = useRef([]);
   const mouseRef = useRef({ x: -1000, y: -1000 });
+  const gridRef = useRef({});
+  const cellSize = 50; // Neighbor search cell size
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -32,8 +34,8 @@ const BoidSimulation = () => {
       mouseRef.current = { x: -1000, y: -1000 };
     };
 
-    canvas.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('mouseleave', handleMouseLeave, { passive: true });
 
     // Boid class
     class Boid {
@@ -44,10 +46,33 @@ const BoidSimulation = () => {
           y: (Math.random() - 0.5) * 2
         };
         this.acceleration = { x: 0, y: 0 };
-        this.maxSpeed = 1.5;
-        this.maxForce = 0.03;
+        this.maxSpeed = 4;
+        this.maxForce = 0.1;
         this.size = Math.random() * 2 + 1;
         this.opacity = Math.random() * 0.5 + 0.3;
+      }
+
+      avoidMouse(mouse) {
+        const avoidRadius = 100; // "big obstacle" size
+        const steer = { x: 0, y: 0 };
+
+        const dx = this.position.x - mouse.x;
+        const dy = this.position.y - mouse.y;
+        const distSq = dx * dx + dy * dy;
+
+        if (distSq > 0 && distSq < avoidRadius * avoidRadius) {
+          const dist = Math.sqrt(distSq);
+          steer.x = (dx / dist) * this.maxSpeed - this.velocity.x;
+          steer.y = (dy / dist) * this.maxSpeed - this.velocity.y;
+
+          const steerMag = Math.sqrt(steer.x ** 2 + steer.y ** 2);
+          if (steerMag > this.maxForce * 3) { // stronger than normal steering
+            steer.x = (steer.x / steerMag) * this.maxForce * 3;
+            steer.y = (steer.y / steerMag) * this.maxForce * 3;
+          }
+        }
+
+        return steer;
       }
 
       update() {
@@ -108,22 +133,22 @@ const BoidSimulation = () => {
         return steer;
       }
 
-      flock(boids) {
-        const sep = this.separate(boids);
-        const ali = this.align(boids);
-        const coh = this.cohesion(boids);
+      // Uses only nearby boids from grid
+      flock(grid, mouse) {
+        const neighbors = getNearbyBoids(this, grid);
+        const sep = this.separate(neighbors);
+        const ali = this.align(neighbors);
+        const coh = this.cohesion(neighbors);
+        const avoid = this.avoidMouse(mouse);
 
-        // Weight the forces
-        sep.x *= 2.0;
-        sep.y *= 2.0;
-        ali.x *= 1.0;
-        ali.y *= 1.0;
-        coh.x *= 1.0;
-        coh.y *= 1.0;
+        sep.x *= 2.0; sep.y *= 2.0;
+        ali.x *= 1.0; ali.y *= 1.0;
+        coh.x *= 1.0; coh.y *= 1.0;
 
         this.applyForce(sep);
         this.applyForce(ali);
         this.applyForce(coh);
+        this.applyForce(avoid);
       }
 
       separate(boids) {
@@ -132,48 +157,29 @@ const BoidSimulation = () => {
         let count = 0;
 
         for (let other of boids) {
-          const distance = Math.sqrt(
-            (this.position.x - other.position.x) ** 2 +
-            (this.position.y - other.position.y) ** 2
-          );
-
-          if (distance > 0 && distance < desiredSeparation) {
-            const diff = {
-              x: this.position.x - other.position.x,
-              y: this.position.y - other.position.y
-            };
-            
-            if (distance > 0) {
-              diff.x /= distance;
-              diff.y /= distance;
-            }
-            
-            steer.x += diff.x;
-            steer.y += diff.y;
+          const dx = this.position.x - other.position.x;
+          const dy = this.position.y - other.position.y;
+          const distSq = dx * dx + dy * dy;
+          if (distSq > 0 && distSq < desiredSeparation * desiredSeparation) {
+            steer.x += dx / Math.sqrt(distSq);
+            steer.y += dy / Math.sqrt(distSq);
             count++;
           }
         }
-
         if (count > 0) {
           steer.x /= count;
           steer.y /= count;
-
-          const steerMag = Math.sqrt(steer.x ** 2 + steer.y ** 2);
-          if (steerMag > 0) {
-            steer.x = (steer.x / steerMag) * this.maxSpeed;
-            steer.y = (steer.y / steerMag) * this.maxSpeed;
-          }
-
-          steer.x -= this.velocity.x;
-          steer.y -= this.velocity.y;
-
-          const finalMag = Math.sqrt(steer.x ** 2 + steer.y ** 2);
-          if (finalMag > this.maxForce) {
-            steer.x = (steer.x / finalMag) * this.maxForce;
-            steer.y = (steer.y / finalMag) * this.maxForce;
+          const mag = Math.sqrt(steer.x ** 2 + steer.y ** 2);
+          if (mag > 0) {
+            steer.x = (steer.x / mag) * this.maxSpeed - this.velocity.x;
+            steer.y = (steer.y / mag) * this.maxSpeed - this.velocity.y;
+            const steerMag = Math.sqrt(steer.x ** 2 + steer.y ** 2);
+            if (steerMag > this.maxForce) {
+              steer.x = (steer.x / steerMag) * this.maxForce;
+              steer.y = (steer.y / steerMag) * this.maxForce;
+            }
           }
         }
-
         return steer;
       }
 
@@ -181,44 +187,31 @@ const BoidSimulation = () => {
         const neighborDist = 50;
         const sum = { x: 0, y: 0 };
         let count = 0;
-
         for (let other of boids) {
-          const distance = Math.sqrt(
-            (this.position.x - other.position.x) ** 2 +
-            (this.position.y - other.position.y) ** 2
-          );
-
-          if (distance > 0 && distance < neighborDist) {
+          const dx = this.position.x - other.position.x;
+          const dy = this.position.y - other.position.y;
+          const distSq = dx * dx + dy * dy;
+          if (distSq > 0 && distSq < neighborDist * neighborDist) {
             sum.x += other.velocity.x;
             sum.y += other.velocity.y;
             count++;
           }
         }
-
         if (count > 0) {
           sum.x /= count;
           sum.y /= count;
-
-          const sumMag = Math.sqrt(sum.x ** 2 + sum.y ** 2);
-          if (sumMag > 0) {
-            sum.x = (sum.x / sumMag) * this.maxSpeed;
-            sum.y = (sum.y / sumMag) * this.maxSpeed;
+          const mag = Math.sqrt(sum.x ** 2 + sum.y ** 2);
+          if (mag > 0) {
+            sum.x = (sum.x / mag) * this.maxSpeed - this.velocity.x;
+            sum.y = (sum.y / mag) * this.maxSpeed - this.velocity.y;
+            const steerMag = Math.sqrt(sum.x ** 2 + sum.y ** 2);
+            if (steerMag > this.maxForce) {
+              sum.x = (sum.x / steerMag) * this.maxForce;
+              sum.y = (sum.y / steerMag) * this.maxForce;
+            }
           }
-
-          const steer = {
-            x: sum.x - this.velocity.x,
-            y: sum.y - this.velocity.y
-          };
-
-          const steerMag = Math.sqrt(steer.x ** 2 + steer.y ** 2);
-          if (steerMag > this.maxForce) {
-            steer.x = (steer.x / steerMag) * this.maxForce;
-            steer.y = (steer.y / steerMag) * this.maxForce;
-          }
-
-          return steer;
+          return sum;
         }
-
         return { x: 0, y: 0 };
       }
 
@@ -226,26 +219,21 @@ const BoidSimulation = () => {
         const neighborDist = 50;
         const sum = { x: 0, y: 0 };
         let count = 0;
-
         for (let other of boids) {
-          const distance = Math.sqrt(
-            (this.position.x - other.position.x) ** 2 +
-            (this.position.y - other.position.y) ** 2
-          );
-
-          if (distance > 0 && distance < neighborDist) {
+          const dx = this.position.x - other.position.x;
+          const dy = this.position.y - other.position.y;
+          const distSq = dx * dx + dy * dy;
+          if (distSq > 0 && distSq < neighborDist * neighborDist) {
             sum.x += other.position.x;
             sum.y += other.position.y;
             count++;
           }
         }
-
         if (count > 0) {
           sum.x /= count;
           sum.y /= count;
           return this.seek(sum);
         }
-
         return { x: 0, y: 0 };
       }
 
@@ -270,17 +258,45 @@ const BoidSimulation = () => {
       }
     }
 
-    // Initialize boids - moderate amount (not too many, not too few)
+    // Spatial grid helper functions
+    function buildGrid(boids) {
+      const grid = {};
+      for (let boid of boids) {
+        const cellX = Math.floor(boid.position.x / cellSize);
+        const cellY = Math.floor(boid.position.y / cellSize);
+        const key = `${cellX},${cellY}`;
+        if (!grid[key]) grid[key] = [];
+        grid[key].push(boid);
+      }
+      return grid;
+    }
+
+    function getNearbyBoids(boid, grid) {
+      const neighbors = [];
+      const cellX = Math.floor(boid.position.x / cellSize);
+      const cellY = Math.floor(boid.position.y / cellSize);
+      for (let gx = -1; gx <= 1; gx++) {
+        for (let gy = -1; gy <= 1; gy++) {
+          const key = `${cellX + gx},${cellY + gy}`;
+          if (grid[key]) {
+            neighbors.push(...grid[key]);
+          }
+        }
+      }
+      return neighbors;
+    }
+
+    // Init boids
     const initBoids = () => {
       boidsRef.current = [];
-      const numBoids = Math.floor((canvas.width * canvas.height) / 25000); // Responsive to screen size
-      const actualBoids = Math.min(Math.max(numBoids, 30), 80); // Between 30-80 boids
+      const numBoids = Math.floor((canvas.width * canvas.height) / 15000); // Responsive to screen size
+      const actualBoids = Math.min(numBoids, 500); // Between 30-80 boids
 
       for (let i = 0; i < actualBoids; i++) {
         boidsRef.current.push(
           new Boid(
-            Math.random() * canvas.width,
-            Math.random() * canvas.height
+          Math.random() * canvas.width,
+          Math.random() * canvas.height
           )
         );
       }
@@ -288,13 +304,18 @@ const BoidSimulation = () => {
 
     initBoids();
 
-    // Animation loop
+    // Animation
     const animate = () => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      // Build spatial grid
+      gridRef.current = buildGrid(boidsRef.current);
+
       for (let boid of boidsRef.current) {
-        boid.flock(boidsRef.current);
+        boid.flock(gridRef.current, mouseRef.current);
+      }
+      for (let boid of boidsRef.current) {
         boid.update();
         boid.draw(ctx);
       }
@@ -306,9 +327,9 @@ const BoidSimulation = () => {
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseleave', handleMouseLeave);
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
   }, []);
 

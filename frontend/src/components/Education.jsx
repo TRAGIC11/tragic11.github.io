@@ -6,8 +6,6 @@ const Education = () => {
     degree: "BTech Aerospace Engineering",
     institution: "Indian Institute of Technology, Madras",
     period: "2019 - 2023",
-    gpa: "8.2",
-    jeePercentile: "99.11",
     minor: "Artificial Intelligence and Machine Learning"
   };
 
@@ -52,9 +50,7 @@ const Education = () => {
   ];
 
   const achievements = [
-    "Top 5% contributor on Project Euler, solving complex computational mathematics problems",
-    "Demonstrated expertise in algorithms, number theory, and optimization",
-    "Continuously improving analytical and programming skills",
+    "Top 1% contributor on Project Euler, solving complex computational mathematics problems",
     "Hockey Team Captain for Hostel during first year at IIT Madras (2020)"
   ];
 
@@ -84,17 +80,6 @@ const Education = () => {
                   <h4 className="text-xl font-semibold text-white mb-2">{education.degree}</h4>
                   <p className="text-cyan-400 font-medium text-lg">{education.institution}</p>
                   <p className="text-gray-400">{education.period}</p>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 pt-4">
-                  <div className="bg-gray-800/50 p-4 rounded-lg">
-                    <p className="text-sm text-gray-400">CGPA</p>
-                    <p className="text-2xl font-bold text-cyan-400">{education.gpa}</p>
-                  </div>
-                  <div className="bg-gray-800/50 p-4 rounded-lg">
-                    <p className="text-sm text-gray-400">JEE Percentile</p>
-                    <p className="text-2xl font-bold text-cyan-400">{education.jeePercentile}</p>
-                  </div>
                 </div>
 
                 <div className="pt-4">
@@ -149,12 +134,6 @@ const Education = () => {
                     </div>
                   </div>
                 ))}
-              </div>
-
-              <div className="mt-8 p-4 bg-cyan-900/20 border border-cyan-400/30 rounded-lg">
-                <p className="text-cyan-300 text-sm font-medium text-center">
-                  Continuously expanding knowledge through industry-recognized programs
-                </p>
               </div>
             </div>
           </div>

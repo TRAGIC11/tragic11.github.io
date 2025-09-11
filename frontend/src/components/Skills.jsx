@@ -7,7 +7,7 @@ const Skills = () => {
       title: "Programming Languages",
       icon: <Code className="text-blue-400" size={24} />,
       skills: [
-        { name: "Python", level: 95 },
+        { name: "Python", level: 100 },
         { name: "Java", level: 85 },
         { name: "JavaScript", level: 80 }
       ]
@@ -27,9 +27,9 @@ const Skills = () => {
       title: "Cloud & Tools",
       icon: <Cloud className="text-green-400" size={24} />,
       skills: [
-        { name: "AWS", level: 85 },
-        { name: "GCP", level: 80 },
-        { name: "Docker", level: 75 },
+        { name: "AWS", level: 95 },
+        { name: "GCP", level: 45 },
+        { name: "Docker", level: 80 },
         { name: "Git", level: 90 }
       ]
     },
@@ -37,31 +37,31 @@ const Skills = () => {
       title: "Data & Databases",
       icon: <Database className="text-yellow-400" size={24} />,
       skills: [
-        { name: "MongoDB", level: 85 },
-        { name: "PostgreSQL", level: 80 },
+        { name: "PostgreSQL", level: 90 },
         { name: "MS Excel", level: 90 },
         { name: "Pandas", level: 92 },
-        { name: "NumPy", level: 90 }
+        { name: "NumPy", level: 90 },
+        { name: "MongoDB", level: 75 }
       ]
     },
     {
-      title: "Frameworks & Libraries",
+      title: "Experience in ML sub-fields",
       icon: <Settings className="text-red-400" size={24} />,
       skills: [
-        { name: "SpringBoot", level: 75 },
-        { name: "ReactJS", level: 70 },
-        { name: "FastAPI", level: 80 },
-        { name: "FAISS", level: 75 }
+        { name: "NLP", level: 88 },
+        { name: "Computer Vision", level: 77 },
+        { name: "Reinforcement Learning", level: 70 },
+        { name: "Optimization Algorithms", level: 92 }
       ]
     },
     {
       title: "Languages",
       icon: <Languages className="text-cyan-400" size={24} />,
       skills: [
-        { name: "English", level: 95 },
+        { name: "English", level: 100 },
         { name: "German", level: 70 },
-        { name: "French", level: 65 },
-        { name: "Hindi", level: 95 },
+        { name: "French", level: 35 },
+        { name: "Hindi", level: 100 },
         { name: "Marathi", level: 100 }
       ]
     }

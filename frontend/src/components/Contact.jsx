@@ -1,13 +1,22 @@
-import React from 'react';
-import { Mail, Phone, Github, Linkedin, MapPin, MessageCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { Mail, Phone, Github, Linkedin, MapPin, MessageCircle, Check  } from 'lucide-react';
+
 
 const Contact = () => {
+  const [copied, setCopied] = useState(false);
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000); // reset after 2s
+  };
+
   const contactInfo = [
     {
       icon: <Mail className="text-cyan-400" size={24} />,
       label: "Email",
       value: "piyush.bhujbal0201@gmail.com",
-      href: "mailto:piyush.bhujbal0201@gmail.com",
+      onClick: () => copyToClipboard("piyush.bhujbal0201@gmail.com"),
       description: "Send me an email for business inquiries"
     },
     {
@@ -61,12 +70,11 @@ const Contact = () => {
           {/* Contact Information Grid */}
           <div className="grid md:grid-cols-2 gap-6 mb-12">
             {contactInfo.map((info, index) => (
-              <a
+              <div
                 key={index}
-                href={info.href}
-                target={info.href.startsWith('http') ? '_blank' : undefined}
-                rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className="flex items-start p-6 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl hover:border-cyan-400/50 hover:transform hover:scale-105 transition-all duration-300 group"
+                onClick={info.onClick || undefined}
+                className={`flex items-start p-6 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl transition-all duration-300 group 
+                ${info.onClick ? "cursor-pointer hover:border-cyan-400/50 hover:scale-105" : "hover:border-cyan-400/50 hover:scale-105"}`}
               >
                 <div className="mr-4 mt-1">
                   {info.icon}
@@ -75,14 +83,17 @@ const Contact = () => {
                   <h4 className="text-lg font-semibold text-white mb-1 group-hover:text-cyan-400 transition-colors duration-200">
                     {info.label}
                   </h4>
-                  <p className="text-cyan-400 font-medium mb-2">
+                  <p className="text-cyan-400 font-medium mb-2 flex items-center">
                     {info.value}
+                    {info.label === "Email" && copied && (
+                      <span className="ml-2 text-green-400 text-sm">Copied!</span>
+                    )}
                   </p>
                   <p className="text-sm text-gray-400">
                     {info.description}
                   </p>
                 </div>
-              </a>
+              </div>
             ))}
           </div>
 
@@ -102,7 +113,7 @@ const Contact = () => {
                 <div className="w-3 h-3 bg-green-400 rounded-full mr-3 animate-pulse"></div>
                 <h4 className="text-lg font-semibold text-white">Availability</h4>
               </div>
-              <p className="text-gray-300 mb-2">Currently open to new opportunities</p>
+              <p className="text-gray-300 mb-2">Always interested in new opportunities</p>
               <p className="text-sm text-gray-400">Usually responds within 24 hours</p>
             </div>
           </div>

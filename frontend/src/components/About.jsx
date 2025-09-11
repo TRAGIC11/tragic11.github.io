@@ -44,7 +44,6 @@ const About = () => {
               </div>
               <p className="text-gray-300">
                 BTech Aerospace Engineering from IIT Madras with Minor in AI/ML. 
-                JEE Mains Percentile: 99.11
               </p>
             </div>
 
@@ -65,7 +64,7 @@ const About = () => {
                 <h3 className="text-xl font-semibold text-white">Leadership</h3>
               </div>
               <p className="text-gray-300">
-                Hockey Team Captain at IIT Madras hostel, demonstrating 
+                Hockey Team Captain at IIT Madras for my Hostel, demonstrating 
                 leadership and team coordination skills
               </p>
             </div>
