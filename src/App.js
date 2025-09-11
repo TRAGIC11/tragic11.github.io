@@ -6,7 +6,7 @@ import HomePage from "./components/HomePage";
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename="/Portfolio">
         <Routes>
           <Route path="/" element={<HomePage />} />
         </Routes>
