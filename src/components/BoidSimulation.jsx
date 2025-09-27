@@ -46,7 +46,7 @@ const BoidSimulation = () => {
           y: (Math.random() - 0.5) * 2
         };
         this.acceleration = { x: 0, y: 0 };
-        this.maxSpeed = 4;
+        this.maxSpeed = 2;
         this.maxForce = 0.1;
         this.size = Math.random() * 2 + 1;
         this.opacity = Math.random() * 0.5 + 0.3;
